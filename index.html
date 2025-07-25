@@ -22,10 +22,18 @@
       font-family: 'Cormorant Garamond', serif; /* Основной шрифт */
       background-color: #fef7f3; /* Тёплый фон страницы */
       color: #2e2e2e; /* Цвет основного текста */
-      font-size: 1.5rem;
+      font-size: clamp(1.5rem, 2vw + 1rem, 2rem);
       background-repeat: repeat;
       background-size: 80px 80px;
     }
+    body {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+body.loaded {
+  opacity: 1;
+}
 
     .cover {
       position: relative; /* Для абсолютного позиционирования текста поверх изображения */
@@ -115,7 +123,7 @@
         font-size: 1.125rem;
       }
       .cover-content .caption {
-        font-size: 1rem;
+        font-size: 1ю5rem;
       }
     }
 
@@ -189,7 +197,7 @@
 
 .venue-text {
   font-size: 1rem;
-  color: #777;
+  color: #3a3a3a;
   max-width: 26.25rem;
   margin: 0 auto 0.5rem auto;
   font-family: 'Cormorant Garamond', serif;
@@ -308,7 +316,7 @@
 
 .schedule-item .event {
   font-size: 1rem;
-  color: #555;
+  color: #2e2e2e;
   text-align: left;
   flex: 1;
   line-height: 1.4;
@@ -355,7 +363,7 @@
 
 .wishes-subtext {
   font-size: 0.875rem;
-  color: #555;
+  color:#3a3a3a;
   margin-bottom: 1.25rem;
   max-width: 26.25rem;
   margin-left: auto;
@@ -366,7 +374,7 @@
 .wishes-text {
   font-size: 1rem;
   font-family: 'Cormorant Garamond', serif;
-  color: #777; /* Тёплый кофейный цвет */
+  color: #3a3a3a; /* Тёплый кофейный цвет */
   margin-bottom: 1.5rem;
   max-width: 28rem;
   margin-left: auto;
@@ -382,8 +390,8 @@
   margin: 0 auto;
   max-width: 28.75rem;
   text-align: left;
-  font-size: 0.875rem;
-  color: #555;
+  font-size: 1rem;
+  color: #3a3a3a;
   border-top: 0.0625rem dashed #ccc;
 }
 
@@ -432,7 +440,6 @@
   overflow-x: hidden;
 }
   }
-}
 
 .couple-img {
   width: 100%;
@@ -713,7 +720,7 @@ html, body {
 
 @media (max-width: 767px) {
   .cover-content .caption {
-    font-size: 1rem; /* ~20px */
+    font-size: 1.1rem; /* ~20px */
   }
 }
 
@@ -906,17 +913,32 @@ html, body {
 
 @media (min-width: 768px) {
   .photo-wrapper {
-    display: flex;
-    justify-content: center;
-    position: relative;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .photo-wrapper img {
-    max-width: 50%;
-    height: auto;
-    border-radius: 12px;
-    display: block;
-  }
+.photo-wrapper img {
+  max-width: 50%;
+  height: auto;
+  display: block;
+}
+}
+
+@media (max-width: 767px) {
+.photo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background-color: #fef7f3; /* тот же фон, что и в других блоках */
+}
+
+.photo-wrapper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.3rem;
+}
 }
 
   </style>
@@ -925,10 +947,10 @@ html, body {
   <div class="site-wrapper">
   <section class="intro-section fade-in">
     <div class="intro-wrapper">
-      <img src="hero2.jpg" alt="Екатерина и Владислав" class="intro-image">
+      <img src="hero2.jpg" alt="Владислав и Екатерина" class="intro-image">
       <div class="intro-text">
         <div class="date">04 | 10 | 2025</div>
-        <h1>Екатерина & Владислав</h1>
+        <h1>Владислав & Екатерина</h1>
         <p class="caption">Дорогие друзья! С радостью приглашаем вас разделить с нами этот особенный и волшебный день!</p>
       </div>
     </div>
@@ -1025,13 +1047,12 @@ html, body {
    <div class="wishes-block fade-in">
     <h2 class="wishes-title">Пожелания</h2>
     <p class="wishes-text">
-      Дорогие гости!
-Мы с нетерпением ждём встречи с каждым из вас в этот важный для нас день. Чтобы праздник прошёл легко, душевно и с удовольствием для всех, хотим поделиться несколькими добрыми пожеланиями:
+Мы с нетерпением ждём встречи с каждым из вас в этот важный для нас день. Чтобы праздник прошёл легко, душевно и с удовольствием для всех, хотим поделиться несколькими пожеланиями:
     </p>
     <ol class="wishes-list">
       <li class="wishes-item">
         Мы не устанавливаем дресс-код – выбирайте то, в чём вам комфортно и красиво.
-        Будем рады изящным образам и заранее благодарны, если захватите что-то тёплое на вечер.
+        Будем рады изящным образам и благодарны, если захватите что-то тёплое на вечер.
       </li>
       <li class="wishes-item decorated">
         Мы наняли фотографа, который запечатлит самые трогательные моменты. Поэтому вы можете просто наслаждаться происходящим, не думая о телефоне – всё важное останется в кадре.
@@ -1122,9 +1143,14 @@ html, body {
       setTimeout(() => symbol.remove(), 10000);
     }
   
-    setInterval(createFloatingSymbol, 2700);
+    setInterval(createFloatingSymbol, 2850);
   </script>
 
 </div>
+<script>
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+  });
+</script>
 </body>
 </html>
